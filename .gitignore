@@ -1,12 +1,32 @@
+# use glob syntax.
+syntax: glob
 *.class
+*~
+*.bak
+*.off
+*.old
+.DS_Store
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# Gradle
+.gradle
+.settings
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# building
+target
+bin 
+build
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# Eclipse
+.classpath
+.project
+.settings
+
+# IDEA
+*.iml
+*.ipr
+*.iws
+.idea/*.*
+.idea/**/*.*
+
+# Logs
+*.log
