@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/manage">
+    <body>
+        <div layout:fragment="title">
+            <h1>Manage</h1>
+        </div>
+        <div layout:fragment="content">
+            <p class="lead">Manage reports page</p>
+
+            <div id="reports"></div>
+            <script id="reports-template" type="x-template">
+                <table class="table table-striped" >
+                    <tbody>
+                    <tr>
+                        <th>Title</th>
+                        <th>Name</th>
+                        <th>Version</th>
+                        <th><span class="glyphicon glyphicon-pencil pull-right"></span></th>
+                    </tr>
+                    {{#rows}}
+                    <tr>
+                        <td>{{title}}</td>
+                        <td>{{name}}</td>
+                        <td>{{version}}</td>
+                        <td><a class="btn btn-default btn-sm pull-right" title="{{_links.self.href}}" on-click="get" href="#formAnchor"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                    </tr>
+                    {{/rows}}
+                    </tbody>
+                </table>
+
+                <div class="panel-body">
+                    <a id="formAnchor"></a>
+                    <form role="form" on-submit="submit">
+                        <input type="hidden" id="_links" value="{{_links.self.href}}"/>
+
+                        <div class="form-group">
+                            <label form="title">Title:</label>
+                            <input type="text" id="title" value="{{title}}" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" value="{{name}}" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="version">Version:</label>
+                            <input type="text" id="version" value="{{version}}" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="template">Template:</label>
+                            <textarea id="template" class="form-control" rows="3" value="{{template}}"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="defaultJsonData">Default JSON Data:</label>
+                            <textarea id="defaultJsonData" class="form-control" rows="3" value="{{defaultJsonData}}"></textarea>
+                        </div>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="previewBtn">Preview report</button>
+                        <button type="submit" class="btn btn-default" id="submitBtn">Submit report</button>
+                        {{#_links.self.href}}
+                        <button type="button" class="btn btn-default" on-click="delete">Remove report</button>
+                        {{/_links.self.href}}
+                    </form>
+                </div>
+
+            </script>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Preview report</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="previewBody">...</div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <p layout:fragment="custom-footer">This is some footer content from content page 1</p>
+        </footer>
+        <section layout:fragment="custom-js">
+            <script src="../../js/reports.js" th:src="@{../js/reports.js}"></script>
+            <script src="../../js/hateoas-datatable.js" th:src="@{../js/hateoas-datatable.js}"></script>
+            <script>
+                 //CKEDITOR.replace('template');
+            </script>
+        </section>
+    </body>
+</html>
